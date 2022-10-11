@@ -35,6 +35,9 @@ postgresql:
     init.sql: |
       CREATE DATABASE trento_event_store;
 
+wanda:
+  enabled: false
+
 prometheus:
   enabled: true
   server:
