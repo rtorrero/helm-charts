@@ -61,8 +61,19 @@ Create the name of the service account to use
 {{- end }}
 {{- end }}
 
+{{/*
+Return Trento Wanda service port
+*/}}
+{{- define "wanda.port" -}}
+{{- if .Values.global.wanda.servicePort }}
+    {{- .Values.global.wanda.servicePort -}}
+{{- else -}}
+    {{- .Values.service.port -}}
+{{- end -}}
+{{- end -}}
+
 {{- define "wanda.secretKeyBase" -}}
-  {{ $secretName := (print (include "trento-web.fullname" .) "-secret") }}
+  {{ $secretName := (print (include "wanda.fullname" .) "-secret") }}
   {{- $secret := (lookup "v1" "Secret" .Release.Namespace $secretName) -}}
   {{- if $secret -}}
     {{- index $secret "data" "SECRET_KEY_BASE" -}}

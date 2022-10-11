@@ -33,15 +33,9 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           envFrom:
             - configMapRef:
-                name: {{ include "trento-web.fullname" . }}-configmap
+                name: {{ include "wanda.fullname" . }}-configmap
             - secretRef:
-                name: {{ include "trento-web.fullname" . }}-secret
-          env:
-            - name: GRAFANA_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: trento-server-grafana-secret
-                  key: admin-password
+                name: {{ include "wanda.fullname" . }}-secret
           args: ['eval', 'Trento.Release.init()']
       containers:
         - name: {{ .Chart.Name }}
@@ -51,16 +45,16 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: 80
+              containerPort: {{ template "wanda.port" . }}
               protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /
-              port: http
-          readinessProbe:
-            httpGet:
-              path: /
-              port: http
+          # livenessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          # readinessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
