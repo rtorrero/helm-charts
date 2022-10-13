@@ -4,4 +4,4 @@ metadata:
   name: {{ include "wanda.fullname" . }}-configmap
 data:
   DATABASE_URL: "ecto://postgres:postgres@{{ .Release.Name }}-{{ .Values.global.postgresql.name }}/wanda"
-  AMQP_URL: "amqp://trento:trento@{{ .Values.global.rabbitmq.name }}:{{ .Values.global.rabbitmq.servicePort }}"
+  AMQP_URL: "amqp://trento:trento@{{ .Release.Name }}-{{ .Values.global.rabbitmq.name }}:{{ .Values.global.rabbitmq.servicePort }}"
