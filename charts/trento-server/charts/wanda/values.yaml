@@ -16,7 +16,8 @@ replicaCount: 1
 
 image:
   repository: ghcr.io/trento-project/wanda
-  pullPolicy: IfNotPresent
+  #pullPolicy: IfNotPresent
+  pullPolicy: Always
   tag: rolling
 
 imagePullSecrets: []
